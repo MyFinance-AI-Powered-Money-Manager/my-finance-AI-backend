@@ -31,6 +31,7 @@ pydantic==2.13.3
 pydantic_core==2.46.3
 Pygments==2.20.0
 python-dateutil==2.9.0.post0
+python-dotenv==1.2.2
 requests==2.33.1
 rich==15.0.0
 six==1.17.0
@@ -42,4 +43,5 @@ typing_extensions==4.15.0
 tzdata==2026.2
 urllib3==2.6.3
 uvicorn==0.46.0
+veryfi==5.0.1
 wrapt==2.1.2
