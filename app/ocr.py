@@ -13,7 +13,7 @@ client = Client(
 
 print("Client initialized...")  
 
-file_path = "./test/1.jpg"
+file_path = "./test/test.jpg"
 
 # proses OCR
 response = client.process_document(file_path)
@@ -30,4 +30,5 @@ for item in items:
         "total": item.get("total")
     })
 
-print(parsed_items)
+for i in parsed_items:
+    print(i)
