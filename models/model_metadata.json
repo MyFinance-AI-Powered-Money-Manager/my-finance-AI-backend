@@ -1,0 +1,17 @@
+{
+  "classes": [
+    "Hobi & Self-Reward",
+    "Jajan & Nongkrong",
+    "Kebutuhan Rumah & Mandi",
+    "Lain-lain & Darurat",
+    "Makan & Minum Harian",
+    "Tagihan & Kewajiban",
+    "Transportasi & Rutinitas"
+  ],
+  "num_classes": 7,
+  "max_seq_len": 30,
+  "vocab_size": 5685,
+  "embedding_dim": 128,
+  "model_version": "1.0.0",
+  "description": "Product Category Classifier untuk MyFinance AI"
+}
