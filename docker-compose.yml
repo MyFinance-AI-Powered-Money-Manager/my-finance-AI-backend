@@ -1,0 +1,14 @@
+services:
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: product-categorization-api
+    ports:
+      - "8000:8000"
+    restart: always 
+    env_file:
+      - .env 
+    # volumes:
+    #   # Uncomment di bawah ini jika ingin mengganti model tanpa harus build ulang image:
+    #   - ./models:/app/models

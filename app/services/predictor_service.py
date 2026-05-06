@@ -104,7 +104,7 @@ class FocalLoss(keras.losses.Loss):
 class ProductCategoryPredictor:
 
     def __init__(self, model_path, metadata_path, custom_objects=None):
-        print("🔄 Memuat model...")
+        print("Memuat model...")
 
         self.model = keras.models.load_model(
             model_path,
@@ -116,7 +116,7 @@ class ProductCategoryPredictor:
 
         self.classes = self.metadata['classes']
 
-        print("✅ Model berhasil dimuat!")
+        print("Model berhasil dimuat!")
         print(f"Jumlah kelas: {len(self.classes)}")
 
     def clean_text(self, text):
