@@ -1,6 +1,5 @@
 name: Deploy API to VPS
 
-# CI/CD ini akan berjalan otomatis jika ada kode baru yang di-push ke branch 'main'
 on:
   push:
     branches:
@@ -12,16 +11,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Menjalankan Perintah di VPS via SSH
+      - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          # Perintah di bawah ini akan dijalankan di dalam VPS Anda.
-          # (Pastikan Anda sudah mengubah nama folder 'product-categorization'
-          # jika di VPS nama foldernya berbeda).
           script: |
-            cd ~/product-categorization
+            cd ~/my-finance-AI-backend
+            git config --global --add safe.directory ~/my-finance-AI-backend
             git pull origin main
-            docker compose up -d --build
+            sudo docker compose down
+            sudo docker compose up -d --build
