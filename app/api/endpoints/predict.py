@@ -14,7 +14,7 @@ predictor = ProductCategoryPredictor(
     }
 )
 
-@router.post("/predict")
+@router.post("/predick")
 def predict(data: ProductInput):
     return predictor.predict(data.name) 
 
