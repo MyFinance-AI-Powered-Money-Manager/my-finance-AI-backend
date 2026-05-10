@@ -62,16 +62,6 @@ Swagger UI:
 http://127.0.0.1:8000/docs
 ```
 
-## Quickstart (Docker)
-
-```bash
-docker compose up --build
-```
-
-Pastikan file `.env` tersedia (lihat `docker-compose.yml` menggunakan `env_file: .env`).
-
-## Base Path
-
 Semua endpoint API ada di prefix:
 
 ```text
