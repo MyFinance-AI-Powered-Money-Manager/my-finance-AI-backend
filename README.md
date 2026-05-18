@@ -802,7 +802,7 @@ Catatan:
 
 ### 9) Leak and Financial Score
 
-**POST** `/api/v1/budget-calculator`
+**POST** `/api/v1/leak-and-financial-score`
 
 Request JSON (contoh minimal yang valid):
 ```json
