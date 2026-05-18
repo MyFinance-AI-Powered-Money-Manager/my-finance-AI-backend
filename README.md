@@ -786,14 +786,10 @@ Request JSON (contoh minimal yang valid):
 Response (200) (contoh):
 ```json
 {
-  "Hobi & Self-Reward": 5763.0,
-  "Jajan & Nongkrong": 1176236.0,
-  "Kebutuhan Rumah & Mandi": 190078.0,
-  "Lain-lain & Darurat": 91158.0,
-  "Makan & Minum Harian": 988800.0,
-  "Tagihan & Kewajiban": 2380857.0,
-  "Transportasi & Rutinitas": 246400.0,
-  "total": 5079292.0
+  "budgets": {
+    "NEEDS": 2490000,
+    "WANTS": 1450000
+  }
 }
 ```
 
