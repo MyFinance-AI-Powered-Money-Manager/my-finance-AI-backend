@@ -611,6 +611,300 @@ Validasi penting:
 - `transactions[].created_at` dipakai untuk filter transaksi yang masuk period tersebut.
 - Satu payload hanya boleh berisi satu `user_id`.
 
+---
+
+### 7) Category Prediction
+
+**POST** `/api/v1/category-prediction`
+
+Request JSON (contoh minimal yang valid):
+```json
+{
+  "user_id": "cc3fd629-6e03-4b21-b6db-6e20f3d9dc39",
+  "month_period": "2026-05",
+  "transactions": [
+    {
+      "id": "trx-001",
+      "wallet_id": "ff95578f-97fd-4b07-925e-04b5242a232f",
+      "type": "INCOME",
+      "total_amount": 5000000,
+      "category": "GAJI",
+      "subcategory": "Gaji Bulanan",
+      "description": "Gaji PT Utama",
+      "transaction_date": "2026-05-01T08:00:00Z"
+    },
+    {
+      "id": "trx-002",
+      "wallet_id": "ff95578f-97fd-4b07-925e-04b5242a232f",
+      "type": "EXPENSE",
+      "total_amount": 50000,
+      "category": "WANTS",
+      "subcategory": "Jajan & Nongkrong",
+      "description": "Nongkrong malem minggu",
+      "transaction_date": "2026-05-05T19:30:00Z"
+    },
+    {
+      "id": "trx-003",
+      "wallet_id": "ff95578f-97fd-4b07-925e-04b5242a232f",
+      "type": "EXPENSE",
+      "total_amount": 10000,
+      "category": "NEEDS",
+      "subcategory": "Makan Sehari-hari",
+      "description": "Naspad",
+      "transaction_date": "2026-05-06T07:30:00Z"
+    }
+  ],...
+  "transaction_items": [
+    {
+      "id": "item-001",
+      "transaction_id": "trx-002",
+      "item_name": "Kopi Susu",
+      "price": 50000,
+      "category": "WANTS",
+      "subcategory": "Jajan & Nongkrong"
+    },
+    {
+      "id": "item-002",
+      "transaction_id": "trx-003",
+      "item_name": "Naspad",
+      "price": 10000,
+      "category": "NEEDS",
+      "subcategory": "Makan Sehari-hari"
+    }
+  ],
+  "budgets": [
+    {
+      "id": "bdgt-001",
+      "category": "NEEDS",
+      "limit_amount": 2500000,
+      "month_period": "2026-05"
+    },
+    {
+      "id": "bdgt-002",
+      "category": "WANTS",
+      "limit_amount": 1500000,
+      "month_period": "2026-05"
+    },...
+  ]
+}
+```
+
+Response (200) (contoh):
+
+```json
+{
+  "Hobi & Self-Reward": 5763.0,
+  "Jajan & Nongkrong": 1176236.0,
+  "Kebutuhan Rumah & Mandi": 190078.0,
+  "Lain-lain & Darurat": 91158.0,
+  "Makan & Minum Harian": 988800.0,
+  "Tagihan & Kewajiban": 2380857.0,
+  "Transportasi & Rutinitas": 246400.0,
+  "total": 5079292.0
+}
+```
+
+Catatan:
+- Perlu data pengeluaran at least 1 bulan sebelumnya dan lebih apabila ingin hasil yang lebih baik
+
+### 8) Budget Calculator
+
+**POST** `/api/v1/budget-calculator`
+
+Request JSON (contoh minimal yang valid):
+```json
+{
+  "user_id": "cc3fd629-6e03-4b21-b6db-6e20f3d9dc39",
+  "month_period": "2026-05",
+  "transactions": [
+    {
+      "id": "trx-001",
+      "wallet_id": "ff95578f-97fd-4b07-925e-04b5242a232f",
+      "type": "INCOME",
+      "total_amount": 5000000,
+      "category": "GAJI",
+      "subcategory": "Gaji Bulanan",
+      "description": "Gaji PT Utama",
+      "transaction_date": "2026-05-01T08:00:00Z"
+    },
+    {
+      "id": "trx-002",
+      "wallet_id": "ff95578f-97fd-4b07-925e-04b5242a232f",
+      "type": "EXPENSE",
+      "total_amount": 50000,
+      "category": "WANTS",
+      "subcategory": "Jajan & Nongkrong",
+      "description": "Nongkrong malem minggu",
+      "transaction_date": "2026-05-05T19:30:00Z"
+    },
+    {
+      "id": "trx-003",
+      "wallet_id": "ff95578f-97fd-4b07-925e-04b5242a232f",
+      "type": "EXPENSE",
+      "total_amount": 10000,
+      "category": "NEEDS",
+      "subcategory": "Makan Sehari-hari",
+      "description": "Naspad",
+      "transaction_date": "2026-05-06T07:30:00Z"
+    }
+  ],
+  "transaction_items": [
+    {
+      "id": "item-001",
+      "transaction_id": "trx-002",
+      "item_name": "Kopi Susu",
+      "price": 50000,
+      "category": "WANTS",
+      "subcategory": "Jajan & Nongkrong"
+    },
+    {
+      "id": "item-002",
+      "transaction_id": "trx-003",
+      "item_name": "Naspad",
+      "price": 10000,
+      "category": "NEEDS",
+      "subcategory": "Makan Sehari-hari"
+    }
+  ],
+  "budgets": [
+    {
+      "id": "bdgt-001",
+      "category": "NEEDS",
+      "limit_amount": 2500000,
+      "month_period": "2026-05"
+    },
+    {
+      "id": "bdgt-002",
+      "category": "WANTS",
+      "limit_amount": 1500000,
+      "month_period": "2026-05"
+    }
+  ]
+}
+```
+
+Response (200) (contoh):
+```json
+{
+  "Hobi & Self-Reward": 5763.0,
+  "Jajan & Nongkrong": 1176236.0,
+  "Kebutuhan Rumah & Mandi": 190078.0,
+  "Lain-lain & Darurat": 91158.0,
+  "Makan & Minum Harian": 988800.0,
+  "Tagihan & Kewajiban": 2380857.0,
+  "Transportasi & Rutinitas": 246400.0,
+  "total": 5079292.0
+}
+```
+
+Catatan:
+- Data pada request POST sebaiknya ada dalam rentang 1 bulan (awal bulan sampai tanggal sekarang/awal bulan sampai akhir bulan)
+
+### 9) Leak and Financial Score
+
+**POST** `/api/v1/budget-calculator`
+
+Request JSON (contoh minimal yang valid):
+```json
+{
+  "user_id": "cc3fd629-6e03-4b21-b6db-6e20f3d9dc39",
+  "month_period": "2026-05",
+  "transactions": [
+    {
+      "id": "trx-001",
+      "wallet_id": "ff95578f-97fd-4b07-925e-04b5242a232f",
+      "type": "INCOME",
+      "total_amount": 5000000,
+      "category": "GAJI",
+      "subcategory": "Gaji Bulanan",
+      "description": "Gaji PT Utama",
+      "transaction_date": "2026-05-01T08:00:00Z"
+    },
+    {
+      "id": "trx-002",
+      "wallet_id": "ff95578f-97fd-4b07-925e-04b5242a232f",
+      "type": "EXPENSE",
+      "total_amount": 50000,
+      "category": "WANTS",
+      "subcategory": "Jajan & Nongkrong",
+      "description": "Nongkrong malem minggu",
+      "transaction_date": "2026-05-05T19:30:00Z"
+    },
+    {
+      "id": "trx-003",
+      "wallet_id": "ff95578f-97fd-4b07-925e-04b5242a232f",
+      "type": "EXPENSE",
+      "total_amount": 10000,
+      "category": "NEEDS",
+      "subcategory": "Makan Sehari-hari",
+      "description": "Naspad",
+      "transaction_date": "2026-05-06T07:30:00Z"
+    }
+  ],
+  "transaction_items": [
+    {
+      "id": "item-001",
+      "transaction_id": "trx-002",
+      "item_name": "Kopi Susu",
+      "price": 50000,
+      "category": "WANTS",
+      "subcategory": "Jajan & Nongkrong"
+    },
+    {
+      "id": "item-002",
+      "transaction_id": "trx-003",
+      "item_name": "Naspad",
+      "price": 10000,
+      "category": "NEEDS",
+      "subcategory": "Makan Sehari-hari"
+    }
+  ],
+  "budgets": [
+    {
+      "id": "bdgt-001",
+      "category": "NEEDS",
+      "limit_amount": 2500000,
+      "month_period": "2026-05"
+    },
+    {
+      "id": "bdgt-002",
+      "category": "WANTS",
+      "limit_amount": 1500000,
+      "month_period": "2026-05"
+    }
+  ]
+}
+```
+
+Response (200) (contoh):
+```json
+{
+  "financial summary": {
+    "financial_score": 80,
+    "score_category": "Excellent",
+    "total_income": 4993492,
+    "total_expense": 3601928,
+    "net_cashflow": 1391564,
+    "savings_rate": 0.27867552406211926,
+    "needs_ratio": 0.8685981507681442,
+    "wants_ratio": 0.04897377182442292,
+    "others_ratio": 0.08242807740743291,
+    "final_potential_leak_count": 2,
+    "final_potential_leak_spending": 74000,
+    "potential_leak_ratio": 0.02054455280616381,
+    "budget_used_ratio_total": 0,
+    "overbudget_category_count": 0,
+    "spending_volatility": 1.9296841568355776,
+    "score_reason": "Terdapat beberapa potensi leak. Pengeluaran harian cukup fluktuatif."
+  },
+  "leak_products": [
+    "chiffon coklat",
+    "GoJek pergi"
+  ]
+}
+```
+
+
 ## Troubleshooting
 
 - Error OCR terkait env: pastikan semua `VERYFI_*` diisi.
