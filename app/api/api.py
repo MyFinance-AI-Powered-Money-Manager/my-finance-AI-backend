@@ -1,8 +1,9 @@
 from fastapi import APIRouter
-from app.api.endpoints import predict, ocr, ai_insight, calculate_budget, category_prediction
+from app.api.endpoints import predict, ocr, ai_insight, calculate_budget, category_prediction, leak_and_financial_score
 
 api_router = APIRouter()
 
+api_router.include_router(leak_and_financial_score.router, tags=["financial score"])
 api_router.include_router(calculate_budget.router, tags=["calculate budget"])
 api_router.include_router(category_prediction.router, tags=["category prediction"])
 api_router.include_router(predict.router, tags=["predict"])
