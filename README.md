@@ -904,6 +904,8 @@ Response (200) (contoh):
 }
 ```
 
+Hasil dari Tensorboard
+<img width="2439" height="791" alt="Screenshot 2026-06-07 210928" src="https://github.com/user-attachments/assets/bc2ed45d-6cec-43d8-b387-4824300e956e" />
 
 ## Troubleshooting
 
